@@ -8,8 +8,12 @@ user_route.set('views',"./views/users");
 
 const userController = require('../controllers/UserController');
 
-user_route.get('/',userController.loadLogin);
+// registration routes
 user_route.get('/register', userController.loadRegister);
+user_route.post('/verifyRegister',userController.loadVerifyRegister);
 
+
+// login routes
+user_route.get('/',userController.loadLogin);
 
 module.exports = user_route;

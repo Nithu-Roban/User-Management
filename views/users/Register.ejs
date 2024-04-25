@@ -41,21 +41,18 @@
         <div class="row justify-content-centers">
             <div class="col">
                 <h1 class="text-center text-uppercase fst-italic" >Sign Up</h1>
-                <form action="" method="post" class="register-form">
+                <form action="/verifyRegister" method="post" class="register-form">
+                    
                     <div class="mb-3">
-                        <label for="username" class="fw-medium text-uppercase">Name</label>
-                        <input type="text" name="name" id="name" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="username" class="fw-medium text-uppercase">email</label>
+                        <label for="email" class="fw-medium text-uppercase">email</label>
                         <input type="email" name="email" id="email" class="form-control" required>
 
                     </div>
                     <div class="mb-3">
-                        <label for="username" class="fw-medium text-uppercase">Username</label>
+                        <label for="username" class="fw-medium text-uppercase">Full Name</label>
                         <input type="text" name="uname" id="uname" class="form-control" required>
-
                     </div>
+                   
                     <div class="mb-3">
                         <label for="password" class="form-label fw-medium text-uppercase">password</label>
                         <input type="password" name="pass" id="pass" class="form-control" required>
@@ -63,12 +60,12 @@
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label fw-medium text-uppercase">confirm password</label>
-                        <input type="password" name="pass" id="pass" class="form-control" required>
-
+                        <input type="password" name="cpass" id="cpass" class="form-control"  required>
+                        <div id="passwordError" style="color: red;"></div>
                     </div>
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-success"> SIGN UP</button> 
-                        <p>Already have an account? <a href="/"><button class="btn btn-primary btn-sm">Login here</button></a></p>
+                        <p>Already have an account? <a href="/" class="btn btn-primary btn-sm">Login here</a></p>
                     </div>
                     <!-- need to add form action for login and register also need to create a model for user to save the details of user -->
                 </form>
@@ -79,5 +76,27 @@
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            const passInput = document.getElementById('pass');
+            const cpassInput = document.getElementById('cpass');
+            const passwordError = document.getElementById('passwordError');
+            
+            function checkPassword(){
+                if (passInput.value !== cpassInput.value){
+                    passwordError.textContent = "passwords do not match";
+                    return false;
+                }else{
+                    passwordError.textContent="";
+                    return true;
+                }
+            }
+            
+            //Event Listener to trigger password check on completion of confirm password
+            cpassInput.addEventListener('blur',checkPassword);
+
+        });
+    </script>
 </body>
 </html>
