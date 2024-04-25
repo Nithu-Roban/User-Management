@@ -1,5 +1,5 @@
 // requiring models 
-const User = require('../models/userModel');
+const User=require('../models/userModel')
 
 
 
@@ -19,17 +19,29 @@ const loadRegister = async(req,res)=>{
     }
 }
 
+// function to check the validity
+const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?!.*\s).{8,}$/;
+function validatePassword(password){
+    return passwordRegex.test(password);
+}
+
 
 // Verifying registration of user
 const loadVerifyRegister = async(req,res)=>{
     try{
-        const {uname} = req.body.uname;
+
+
         // console.log(uname)
-        const {email,pass} = req.body;
+        const {uname,email,pass} = req.body;
+
+        console.log("req.body:",req.body)
+        
+
+
         if(validatePassword(pass)){
 
             // checks for already existing user
-            const existingUser = await User.find({email:email});
+            const existingUser = await User.findOne({email:email});
             if(existingUser){
                 return res.status(400).json({message:" User with this email already exists!!!"});
             }
@@ -42,21 +54,21 @@ const loadVerifyRegister = async(req,res)=>{
 
             });
             await userData.save();
+            console.log(userData)
             console.log('user details are saved successfully');
             res.redirect('/');
 
         }
-
-    }catch(error){
+        else {
+            req.flash('error', 'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.');
+            return res.redirect('/');
+        }
+    }
+    catch(error){
         console.log(error.message);
     }
 }
 
-// function to check the validity
-function validatePassword(password){
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?!.*\s).{8,}$/;
-    return passwordRegex.test(password);
-}
 
 
 

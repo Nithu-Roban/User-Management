@@ -10,6 +10,11 @@ const mongoose=require("mongoose")
 const uri = "mongodb+srv://nithuroban453:123@cluster0.trjkrqs.mongodb.net/"
 mongoose.connect(uri);
 
+// Middleware to parse URL-encoded bodies with extended options
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+
+
 // Routes
 const user_route = require("./routes/userRoute");
 app.use("/", user_route);
