@@ -33,7 +33,7 @@ const loadVerifyRegister = async(req,res)=>{
 
         // console.log(uname)
         const {uname,email,pass} = req.body;
-
+        
         console.log("req.body:",req.body)
         
 
@@ -60,8 +60,13 @@ const loadVerifyRegister = async(req,res)=>{
 
         }
         else {
-            req.flash('error', 'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.');
-            return res.redirect('/');
+            
+
+            // req.flash('error', 'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.');
+            // return res.redirect('/');
+
+            const errorMessage = 'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.';
+            return res.status(400).json({ error: errorMessage });
         }
     }
     catch(error){

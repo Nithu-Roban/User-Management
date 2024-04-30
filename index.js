@@ -1,6 +1,9 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
+const flash = require('connect-flash');
+
+
 
 const app = express();
 const port = 8050;
@@ -13,6 +16,10 @@ mongoose.connect(uri);
 // Middleware to parse URL-encoded bodies with extended options
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+app.use(flash());
+
+
+
 
 
 // Routes

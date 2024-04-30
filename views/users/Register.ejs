@@ -41,7 +41,7 @@
         <div class="row justify-content-centers">
             <div class="col">
                 <h1 class="text-center text-uppercase fst-italic" >Sign Up</h1>
-                <form action="/verifyRegister" method="post" class="register-form">
+                <form action="/verifyRegister" method="post" class="register-form" id="registerForm">
                     
                     <div class="mb-3">
                         <label for="email" class="fw-medium text-uppercase">email</label>
@@ -97,6 +97,22 @@
             cpassInput.addEventListener('blur',checkPassword);
 
         });
+
+    </script>
+
+    <script>
+    
+        // Event Listener in form submission to check for white spaces in the field
+        document.getElementById('registerForm').addEventListener('submit',function(event){
+            const email = document.getElementById('email').value;
+           
+            const pass = document.getElementById('pass').value;
+
+            if(/\s/.test(email)||/\s/.test(pass)){
+                alert('Fields cannot contain white spaces.');
+                event.preventDefault();// prevents form submission
+            }
+        })
     </script>
 </body>
 </html>
