@@ -19,11 +19,20 @@ const loadRegister = async(req,res)=>{
     }
 }
 
-// function to check the validity
-const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?!.*\s).{8,}$/;
-function validatePassword(password){
-    return passwordRegex.test(password);
+
+// initial loading of otp 
+
+const loadOtpVerification = async(req,res)=>{
+    try{
+            res.render('otp');
+    }catch(error){
+        console.log(error.message);
+    }
 }
+
+
+
+
 
 
 // Verifying registration of user
@@ -31,10 +40,15 @@ const loadVerifyRegister = async(req,res)=>{
     try{
 
 
-        // console.log(uname)
-        const {uname,email,pass} = req.body;
         
-        console.log("req.body:",req.body)
+        const {uname,email,pass} = req.body;
+
+        // copying data onto session
+        req.session.uname = uname;
+        req.session.email = email;
+        req.session.pass = pass;
+        
+        // console.log("req.body:",req.body)
         
 
 
@@ -62,11 +76,11 @@ const loadVerifyRegister = async(req,res)=>{
         else {
             
 
-            // req.flash('error', 'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.');
-            // return res.redirect('/');
+            req.flash('error', 'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.');
+            return res.redirect('/');
 
-            const errorMessage = 'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.';
-            return res.status(400).json({ error: errorMessage });
+            // const errorMessage = 'Password must contain at least one uppercase letter, one lowercase letter, one special character, and be at least 8 characters long.';
+            // return res.status(400).json({ error: errorMessage });
         }
     }
     catch(error){
@@ -74,7 +88,11 @@ const loadVerifyRegister = async(req,res)=>{
     }
 }
 
-
+// function to check the validity
+const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?!.*\s).{8,}$/;
+function validatePassword(password){
+    return passwordRegex.test(password);
+}
 
 
 // initial loading of login page
@@ -93,6 +111,7 @@ const loadLogin = async(req,res)=>{
 module.exports={
 
     loadRegister,
+    loadOtpVerification,
     loadVerifyRegister,
 
 

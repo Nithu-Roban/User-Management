@@ -10,6 +10,7 @@ const userController = require('../controllers/UserController');
 
 // registration routes
 user_route.get('/register', userController.loadRegister);
+user_route.get('/otp', userController.loadOtpVerification)
 user_route.post('/verifyRegister',userController.loadVerifyRegister);
 
 
