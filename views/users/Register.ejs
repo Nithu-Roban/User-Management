@@ -111,6 +111,33 @@
                 event.preventDefault();// prevents form submission
             }
         })
+
+
+
+        document.getElementById('registrationForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const uname = document.getElementById('uname').value;
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('pass').value;
+
+            const response = await fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ uname, email, pass })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert(data.message); // Show success message
+                // Redirect to another page if needed
+            } else {
+                alert(data.error); // Show error message
+            }
+        });
+
     </script>
 </body>
 </html>
