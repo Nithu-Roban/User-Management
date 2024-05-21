@@ -112,7 +112,7 @@ const loadVerifyLogin =  async(req,res)=>{
         const loginData = await User.findOne({email:email,password:pass});
         if(loginData){
             console.log("Login Success");
-            res.render('otp');
+            res.redirect('/sendOtp');
         } else{
             return res.status(400).json({ error: "No Such user exist please retry!" });
         }
@@ -125,6 +125,18 @@ const loadVerifyLogin =  async(req,res)=>{
 
 
 
+const loadSendOtp = async(req,res)=>{
+    try{
+        const {email, pass} = req.body;
+        
+
+
+    }catch(error){
+        console.log(error.message);
+    }
+}
+
+
 module.exports={
 
     loadRegister,
@@ -134,6 +146,7 @@ module.exports={
 
 
     loadLogin,
-    loadVerifyLogin
+    loadVerifyLogin,
+    loadSendOtp
     
 }
