@@ -2,7 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const flash = require('connect-flash');
-
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
 
 
 const app = express();
@@ -23,7 +24,7 @@ app.use(session({
     saveUninitialized:true
 }))
 
-
+// app.use(bodyParser.urlencoded({extended:true}));
 
 
 
