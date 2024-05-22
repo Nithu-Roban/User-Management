@@ -112,7 +112,7 @@ const loadVerifyLogin =  async(req,res)=>{
         const loginData = await User.findOne({email:email,password:pass});
         if(loginData){
             console.log("Login Success");
-            res.redirect('/sendOtp');
+            res.redirect(`/sendOtp?${email}`);
         } else{
             return res.status(400).json({ error: "No Such user exist please retry!" });
         }
@@ -127,12 +127,13 @@ const loadVerifyLogin =  async(req,res)=>{
 
 const loadSendOtp = async(req,res)=>{
     try{
-        const {email, pass} = req.body;
+        const {email} = req.query;
         const transporter = nodemailer.createTransport({
             service:'Gmail',
             auth:{
                 user: 'nithuroban453@gmail.com',
-                pass: 'nithuroban'
+
+                pass: '1998'
             }
 
 
@@ -146,12 +147,12 @@ const loadSendOtp = async(req,res)=>{
             from: 'nithuroban453@gmail.com',
             to: email,
             subject :'Your OTP Verification Code',
-            text: `Your OTP verification code is ${randomOtp}`
+            text: 'Hiii'
         };
 
         // send Email
 
-        transporter.sendMail(mailOptions,(error,info)=>{
+        transporter.sendMail(mailOptions, (error,info) =>{
             if(error){
                 console.log('Error sending email:',error); // error triggered need to resolve
                 res.status(500).send('Error sending mail');
