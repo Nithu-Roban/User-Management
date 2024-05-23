@@ -1,5 +1,5 @@
 // requiring models 
-const User=require('../models/userModel');
+const User = require('../models/userModel');
 const nodemailer = require('nodemailer');
 
 
@@ -128,23 +128,29 @@ const loadVerifyLogin =  async(req,res)=>{
 const loadSendOtp = async(req,res)=>{
     try{
         const {email} = req.query;
+        // const transporter = nodemailer.createTransport({
+        //     service:'Gmail',
+        //     auth:{
+        //         user: 'nithuroban777@gmail.com',
+
+        //         pass: 'Nithu@777'
+        //     }
+
+
+        // });
         const transporter = nodemailer.createTransport({
-            service:'Gmail',
-            auth:{
-                user: 'nithuroban453@gmail.com',
-
-                pass: '1998'
+            service: 'Gmail',
+            auth: {
+                user: 'nithuroban777@gmail.com', // Replace with your email
+                pass: 'Nithu@777' // Replace with your app password or email password
             }
-
-
         });
-
         const randomOtp = Math.floor(Math.random()*9999+1000).toString();
         req.session.otp = randomOtp;
 
         // Email options
         const mailOptions = {
-            from: 'nithuroban453@gmail.com',
+            from: 'nithuroban777@gmail.com',
             to: email,
             subject :'Your OTP Verification Code',
             text: 'Hiii'
