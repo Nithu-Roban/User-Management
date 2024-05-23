@@ -140,12 +140,15 @@ const loadSendOtp = async(req,res)=>{
         // });
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             auth: {
                 user: 'nithuroban777@gmail.com', // Replace with your email
                 pass: 'Nithu@777' // Replace with your app password or email password
             }
         });
-        const randomOtp = Math.floor(Math.random()*9999+1000).toString();
+        const randomOtp = Math.floor(Math.random()*999999+1000).toString();
         req.session.otp = randomOtp;
 
         // Email options
@@ -155,6 +158,7 @@ const loadSendOtp = async(req,res)=>{
             subject :'Your OTP Verification Code',
             text: 'Hiii'
         };
+        console.log(randomOtp);
 
         // send Email
 
@@ -170,7 +174,8 @@ const loadSendOtp = async(req,res)=>{
         });
 
     }catch(error){
-        console.log(error.message);
+        console.log('Error in loadSendOtp:', error.message);
+        res.status(500).send('Internal Server Error');
     }
 }
 
