@@ -145,7 +145,7 @@ const loadSendOtp = async(req,res)=>{
             secure: true,
             auth: {
                 user: 'nithuroban777@gmail.com', // Replace with your email
-                pass: 'Nithu@777' // Replace with your app password or email password
+                pass: 'mrku krek opxs usvr' // Replace with your app password or email password
             }
         });
         const randomOtp = Math.floor(Math.random()*999999+1000).toString();
@@ -153,7 +153,7 @@ const loadSendOtp = async(req,res)=>{
 
         // Email options
         const mailOptions = {
-            from: 'nithuroban777@gmail.com',
+            from: 'nithuroban453@gmail.com',
             to: email,
             subject :'Your OTP Verification Code',
             text: 'Hiii'
