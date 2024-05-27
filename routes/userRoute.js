@@ -18,5 +18,6 @@ user_route.post('/verifyRegister',userController.loadVerifyRegister);
 user_route.get('/',userController.loadLogin);
 user_route.post('/verifyLogin', userController.loadVerifyLogin);
 user_route.get('/sendOtp', userController.loadSendOtp);
+user_route.post('/verify_otp',userController.verifyOtp)
 
 module.exports = user_route;

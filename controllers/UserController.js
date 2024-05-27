@@ -109,10 +109,13 @@ const loadLogin = async(req,res)=>{
 const loadVerifyLogin =  async(req,res)=>{
     try{
         const {email,pass}= req.body;
+        console.log("emailfrom login:",email)
         const loginData = await User.findOne({email:email,password:pass});
         if(loginData){
             console.log("Login Success");
-            res.redirect(`/sendOtp?${email}`);
+            // res.redirect(`/sendOtp?${email}`);
+            res.redirect(`/sendOtp?email=${encodeURIComponent(email)}`);
+
         } else{
             return res.status(400).json({ error: "No Such user exist please retry!" });
         }
@@ -128,23 +131,16 @@ const loadVerifyLogin =  async(req,res)=>{
 const loadSendOtp = async(req,res)=>{
     try{
         const {email} = req.query;
-        // const transporter = nodemailer.createTransport({
-        //     service:'Gmail',
-        //     auth:{
-        //         user: 'nithuroban777@gmail.com',
 
-        //         pass: 'Nithu@777'
-        //     }
-
-
-        // });
+        console.log("emailId:",email)
+        
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             host: 'smtp.gmail.com',
             port: 465,
             secure: true,
             auth: {
-                user: 'nithuroban777@gmail.com', // Replace with your email
+                user: 'nithuroban453@gmail.com', // Replace with your email
                 pass: 'mrku krek opxs usvr' // Replace with your app password or email password
             }
         });
@@ -156,7 +152,7 @@ const loadSendOtp = async(req,res)=>{
             from: 'nithuroban453@gmail.com',
             to: email,
             subject :'Your OTP Verification Code',
-            text: 'Hiii'
+            text: `Hi your OTP verification code is ${randomOtp}`
         };
         console.log(randomOtp);
 
@@ -168,7 +164,9 @@ const loadSendOtp = async(req,res)=>{
                 res.status(500).send('Error sending mail');
             } else{
                 console.log('Email sent:',info.response);
-                res.status(200).send('OTP Sent Successfully');
+                // res.status(200).send('OTP Sent Successfully');
+
+                res.render("otp")
             }
 
         });
@@ -180,11 +178,24 @@ const loadSendOtp = async(req,res)=>{
 }
 
 
+const verifyOtp= async(req,res)=>{
+    try {
+
+        
+    } catch (error) {
+
+        res.status(500).send('Internal Server Error')
+        
+    }
+}
+
+
 module.exports={
 
     loadRegister,
     loadOtpVerification,
     loadVerifyRegister,
+    verifyOtp
 
 
 
