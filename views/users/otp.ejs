@@ -44,6 +44,7 @@
     <form id="otpForm" action="/verify_otp" method="POST">
         <label for="otp">OTP:</label>
         <input type="text" id="otp" name="otp" required>
+        <input type="hidden" name="randomOtp" value="<%= randomOtp %>">
         <input type="submit" value="Submit">
     </form>
 </div>

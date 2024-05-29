@@ -166,7 +166,7 @@ const loadSendOtp = async(req,res)=>{
                 console.log('Email sent:',info.response);
                 // res.status(200).send('OTP Sent Successfully');
 
-                res.render("otp")
+                res.render("otp",{randomOtp});
             }
 
         });
@@ -180,6 +180,11 @@ const loadSendOtp = async(req,res)=>{
 
 const verifyOtp= async(req,res)=>{
     try {
+        const randomOtp = req.body.randomOtp;
+        console.log("verify otp :", randomOtp);
+        console.log("otp entered:",req.body.otp);
+        
+
 
         
     } catch (error) {
